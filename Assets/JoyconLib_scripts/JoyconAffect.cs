@@ -78,9 +78,27 @@ public class JoyconAffect : MonoBehaviour
 
             // Gyro values: x, y, z axis values (in radians per second)
             gyro = j.GetGyro();
+            if (gyro.y<-1)
+                Debug.Log("l'avant tourne vers le bas ");
+            if (gyro.y>1)
+                Debug.Log("l'avant tourne vers nous ");
 
             // Accel values:  x, y, z axis values (in Gs)
             accel = j.GetAccel();
+            /*
+            if (accel.x > 1)
+                Debug.Log("pointe vers la haut");
+            if (accel.x < -1)
+                Debug.Log("pointe vers le bas");
+            if (accel.z < -0.99)
+                Debug.Log("a plat");
+            if (accel.z > 0.99)
+                Debug.Log("a l'envers");
+            if (accel.y > 1)
+                Debug.Log("sur la tranche, posé sur le rail");
+            if (accel.y < -1)
+                Debug.Log("sur la tranche, rail vers le haut");
+            */
 
             orientation = j.GetVector();
             if (j.GetButton(Joycon.Button.DPAD_UP))
@@ -91,7 +109,10 @@ public class JoyconAffect : MonoBehaviour
             {
                 gameObject.GetComponent<Renderer>().material.color = Color.blue;
             }
-            gameObject.transform.rotation = orientation;
+            gameObject.transform.RotateAround(gameObject.transform.localPosition, transform.forward, -gyro.z);
+            gameObject.transform.RotateAround(gameObject.transform.localPosition, transform.right, -gyro.y);
+            gameObject.transform.RotateAround(gameObject.transform.localPosition, transform.up, -gyro.x);
+            // gameObject.transform.rotation = orientation;
         }
     }
 }

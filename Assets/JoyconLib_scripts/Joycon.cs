@@ -246,8 +246,9 @@ public class Joycon
         Vector3 v1 = new Vector3(j_b.x, i_b.x, k_b.x);
         Vector3 v2 = -(new Vector3(j_b.z, i_b.z, k_b.z));
         if (v2 != Vector3.zero){
-		    return Quaternion.LookRotation(v1, v2);
-        }else{
+            return Quaternion.LookRotation(v1, v2);
+        }
+        else{
             return Quaternion.identity;
         }
     }
